@@ -1,9 +1,9 @@
 export const saveExpenseToLocalStorage = (expense: any, index: number | null = null) => {
     const expenses = JSON.parse(localStorage.getItem('expenses') || '[]');
     if (index !== null) {
-      expenses[index] = expense;  // Update existing expense
+      expenses[index] = expense;  
     } else {
-      expenses.push(expense);  // Add new expense
+      expenses.push(expense);  
     }
     localStorage.setItem('expenses', JSON.stringify(expenses));
   };

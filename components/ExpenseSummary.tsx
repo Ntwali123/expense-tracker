@@ -6,25 +6,31 @@ import { Pie, Bar } from 'react-chartjs-2';
 
 Chart.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
+interface Expense {
+  amount: number;
+  category: string;
+  date: string;
+  description: string;
+}
+
 export default function ExpenseSummary() {
-  const [expenses, setExpenses] = useState<any[]>([]);
-  const [total, setTotal] = useState(0);
-  const [categoryData, setCategoryData] = useState<any>([]);
-  const [dateData, setDateData] = useState<any>([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [categoryData, setCategoryData] = useState<any>({});
+  const [dateData, setDateData] = useState<any>({});
 
   useEffect(() => {
-    const expenses = getExpensesFromLocalStorage();
+    const expenses: Expense[] = getExpensesFromLocalStorage();
     setExpenses(expenses);
-    const totalAmount = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+
+    const totalAmount = expenses.reduce((sum: number, expense: Expense) => sum + expense.amount, 0);
     setTotal(totalAmount);
 
     const categoryMap: { [key: string]: number } = {};
     const dateMap: { [key: string]: number } = {};
 
-    expenses.forEach((expense) => {
-      // Group by category
+    expenses.forEach((expense: Expense) => {
       categoryMap[expense.category] = (categoryMap[expense.category] || 0) + expense.amount;
-      // Group by date
       dateMap[expense.date] = (dateMap[expense.date] || 0) + expense.amount;
     });
 

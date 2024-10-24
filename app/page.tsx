@@ -6,13 +6,13 @@ export default function Home() {
       <h1 className="text-3xl font-bold mb-6">Expense Tracker</h1>
       <div className="space-y-4">
         <Link href="/add-expense">
-          <a className="text-blue-500">Add Expense</a>
+          <h6 className="text-blue-500">Add Expense</h6>
         </Link>
         <Link href="/expense-list">
-          <a className="text-blue-500">View Expenses</a>
+          <h6 className="text-blue-500">View Expenses</h6>
         </Link>
         <Link href="/expense-summary">
-          <a className="text-blue-500">View Summary</a>
+          <h6 className="text-blue-500">View Summary</h6>
         </Link>
       </div>
     </div>

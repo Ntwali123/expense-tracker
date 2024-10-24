@@ -2,14 +2,21 @@
 import { useState, useEffect } from 'react';
 import { getExpensesFromLocalStorage } from '../../lib/storage';
 
+interface Expense {
+  amount: number;
+  category: string;
+  date: string;
+  description: string;
+}
+
 export default function ExpenseSummary() {
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState<number>(0);
 
   useEffect(() => {
-    // Retrieve expenses from localStorage
-    const expenses = getExpensesFromLocalStorage();
-    // Calculate total
-    const totalAmount = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+    const expenses: Expense[] = getExpensesFromLocalStorage();
+    
+    const totalAmount = expenses.reduce((sum: number, expense: Expense) => sum + expense.amount, 0);
+    
     setTotal(totalAmount);
   }, []);
 

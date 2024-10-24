@@ -7,7 +7,6 @@ export default function ExpenseList() {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    // Retrieve expenses from localStorage
     const storedExpenses = getExpensesFromLocalStorage();
     setExpenses(storedExpenses);
   }, []);

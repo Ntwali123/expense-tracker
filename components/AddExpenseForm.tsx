@@ -32,13 +32,10 @@ export default function AddExpenseForm({ onAddExpense }: AddExpenseFormProps) {
       description,
     };
 
-    // Save to localStorage
     saveExpenseToLocalStorage(expense);
 
-    // Notify parent about the new expense
     onAddExpense();
 
-    // Clear form
     setAmount("");
     setCategory("");
     setDate("");
