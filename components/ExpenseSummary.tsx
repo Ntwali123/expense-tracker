@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { getExpensesFromLocalStorage } from '../lib/storage';
-import { Chart, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 import { Pie, Bar } from 'react-chartjs-2';
+import { Chart, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 
 Chart.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -15,21 +15,22 @@ interface Expense {
 
 export default function ExpenseSummary() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [total, setTotal] = useState<number>(0);
-  const [categoryData, setCategoryData] = useState<any>({});
-  const [dateData, setDateData] = useState<any>({});
+  const [total, setTotal] = useState(0);
+  const [categoryData, setCategoryData] = useState<any>([]);
+  const [dateData, setDateData] = useState<any>([]);
 
   useEffect(() => {
     const expenses: Expense[] = getExpensesFromLocalStorage();
     setExpenses(expenses);
 
+    // Explicitly type sum and expense
     const totalAmount = expenses.reduce((sum: number, expense: Expense) => sum + expense.amount, 0);
     setTotal(totalAmount);
 
     const categoryMap: { [key: string]: number } = {};
     const dateMap: { [key: string]: number } = {};
 
-    expenses.forEach((expense: Expense) => {
+    expenses.forEach((expense) => {
       categoryMap[expense.category] = (categoryMap[expense.category] || 0) + expense.amount;
       dateMap[expense.date] = (dateMap[expense.date] || 0) + expense.amount;
     });
